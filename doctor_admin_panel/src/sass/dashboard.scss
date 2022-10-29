@@ -1,0 +1,48 @@
+@import 'global';
+@import 'color';
+
+// Topbar
+@import 'topbar';
+// Navbar
+@import 'navbar';
+// AlertBar
+@import 'alertbar';
+
+// Login page SCSS
+@import 'loginPage';
+
+// Patient list page SCSS
+@import 'patientListPage';
+
+// Stats page SCSS
+@import 'statsPage';
+
+
+// Some specific CSS for dashboard
+.dashboardContainer{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--admin-panel-bg);
+    padding: 20px;
+
+    .containerContent{
+        padding-top: 80px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+    }
+}
+
+@media (max-width: 800px) {
+    .dashboardContainer{
+        padding: 10px;
+
+        .containerContent{
+            margin-top: 20px;
+        }
+    }
+}

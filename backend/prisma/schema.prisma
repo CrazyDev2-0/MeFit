@@ -1,0 +1,316 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex", "interactiveTransactions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// enums
+enum Gender {
+  m
+  f
+}
+
+enum UserType {
+  patient
+  doctor
+}
+
+enum BloodGroup {
+  ANeg
+  APos
+  BNeg
+  BPos
+  ABNeg
+  ABPos
+  ONeg
+  OPos
+}
+
+enum RiskLevel {
+  low
+  medium
+  high
+}
+
+// User Profile
+model User {
+  id                     String                   @id @default(cuid())
+  email                  String                   @unique
+  name                   String?
+  phoneNo                String?                  @default("")
+  password               String                   @default("")
+  otherDetails           Json                     @default("{}")
+  registeredOn           DateTime                 @default(now())
+  profile                Profile?
+  vitalData              VitalData[]
+  personalizedMonitoring PersonalizedMonitoring[]
+  detectionHistory       DetectionHistory[]
+  device                 DeviceUserLink?
+  FCMToken               UserFCMToken[]
+  patientDataAccess      PatientDataAccess[]
+  emergencyContact       EmergencyContact[]
+  vitalRequest           VitalRequest[]
+  AccessRequest          AccessRequest[]
+}
+
+// Basic Health Profile
+model Profile {
+  id         String      @id @default(cuid())
+  age        Int         @default(0)
+  gender     Gender      @default(m)
+  bloodGroup BloodGroup?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
+
+// Emergency Contacts
+model EmergencyContact {
+  id     String  @id @default(cuid())
+  name   String
+  phone  String
+  email  String
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+}
+
+// Vitals Data
+model VitalData {
+  id  Int   @id @default(autoincrement())
+  val Float @default(0)
+
+  // Foreign key to Vital Record
+  vital   Vital?  @relation(fields: [vitalId], references: [id])
+  vitalId String?
+
+  // Foreign key to User
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  // UTC Timestamp at timezone 00:00
+  timestamp BigInt
+}
+
+// Personalized Monitoring
+model PersonalizedMonitoring {
+  id                        String           @id @default(cuid())
+  // Name
+  name                      String
+  // Description
+  description               String
+  // Foreign key to User
+  user                      User?            @relation(fields: [userId], references: [id])
+  userId                    String?
+  // Thresholds
+  vitalThreshold            VitalThreshold[]
+  // Prediction Model Assigned ?
+  isPredictionModelAssigned Boolean          @default(false)
+  // Prediction Model
+  predictionModel           PredictionModel? @relation(fields: [predictionModelId], references: [id])
+  predictionModelId         String?
+  // Target based config
+  isMonitorStepCount        Boolean          @default(false)
+  minStepCount              Int              @default(0)
+  isMonitorCalorieCount     Boolean          @default(false)
+  minCalorieCount           Int              @default(0)
+  // Assigned By
+  assigneeType              UserType         @default(patient)
+  doctor                    Doctor?          @relation(fields: [doctorId], references: [id])
+  doctorId                  String?
+  // Check Interval
+  intervalSeconds           BigInt           @default(0)
+  // Status
+  isLive                    Boolean          @default(false)
+  // Registered On UTC Timestamp at timezone 00:00
+  registeredOn              BigInt
+}
+
+// Detection History
+model DetectionHistory {
+  id             String    @id @default(cuid())
+  // Reported By
+  reoprtedByName String?
+  // Cause
+  cause          String?   @default("")
+  // Risk level
+  riskLevel      RiskLevel @default(low)
+  // Resolved issue status
+  resolved       Boolean   @default(false)
+  // Foreign key to User
+  user           User?     @relation(fields: [userId], references: [id])
+  userId         String?
+  // Foreign key to Disease
+  disease        Disease?  @relation(fields: [diseaseId], references: [id])
+  diseaseId      String?
+  // Detected On UTC Timestamp at timezone 00:00
+  detectedOn     BigInt
+}
+
+// Doctor Profile
+model Doctor {
+  id                     String                   @id @default(cuid())
+  email                  String                   @unique
+  name                   String
+  password               String                   @default("")
+  FCMToken               DoctorFCMToken[]
+  personalizedMonitoring PersonalizedMonitoring[]
+  patientDataAccess      PatientDataAccess[]
+  AccessRequest          AccessRequest[]
+}
+
+// Patient data access
+model PatientDataAccess {
+  id       String  @id @default(cuid())
+  // Foreign key to User
+  user     User?   @relation(fields: [userId], references: [id])
+  userId   String
+  // Foreign key to Doctor
+  doctor   Doctor? @relation(fields: [doctorId], references: [id])
+  doctorId String
+  // Access granted
+  granted  Boolean @default(true)
+
+  @@unique([userId, doctorId])
+}
+
+// Spcial Wiki Kind of Models -- This one is at core and store config and related information for operation
+
+// Vital Record
+model Vital {
+  id                   String                 @id @default(cuid())
+  code                 String                 @unique
+  name                 String
+  unit                 String
+  canReceiveFromDevice Boolean                @default(false)
+  vitalData            VitalData[]
+  vitalThreshold       VitalThreshold[]
+  predictionModelParam PredictionModelParam[]
+  VitalRequests        VitalRequest[]
+}
+
+// Disease Database
+model Disease {
+  id               String             @id @default(cuid())
+  name             String
+  description      String
+  vitalThresholds  VitalThreshold[]
+  // Related to prediction models required parameters
+  predictionModel  PredictionModel[]
+  detectionHistory DetectionHistory[]
+}
+
+// Vitals Threshold
+model VitalThreshold {
+  id                         String                  @id @default(cuid())
+  // Foreign key to Vital Record
+  vital                      Vital?                  @relation(fields: [vitalId], references: [id])
+  vitalId                    String?
+  // Gender
+  gender                     Gender                  @default(m)
+  // Age Group
+  minAge                     Int                     @default(0)
+  maxAge                     Int                     @default(0)
+  // Data applicable for single point of data
+  min                        Float                   @default(0)
+  max                        Float                   @default(0)
+  threshold                  Float                   @default(0)
+  // Threshold considered as Negative Threshold when vital value goes below threshold
+  isNegativeThreshold        Boolean                 @default(false)
+  // Data Related to Continuous Monitoring
+  longTermMonitoringRequired Boolean                 @default(false)
+  rate                       Int                     @default(0)
+  // Foreign key to disease -- NULL for personalized monitoring custom threshold
+  disease                    Disease?                @relation(fields: [diseaseId], references: [id])
+  diseaseId                  String?
+  // Foreign key to personalized monitoring -- NULL for other than Personalized Monitoring
+  personalizedMonitoring     PersonalizedMonitoring? @relation(fields: [personalizedMonitoringId], references: [id])
+  personalizedMonitoringId   String?
+}
+
+// Prediction Models
+model PredictionModel {
+  id                     String                   @id @default(cuid())
+  name                   String
+  // Version No
+  version                String
+  // Parameters and data required by the model
+  requiredParams         PredictionModelParam[]
+  // Foreign key to Disease
+  disease                Disease?                 @relation(fields: [diseaseId], references: [id])
+  diseaseId              String?
+  // Queue name
+  queueName              String                   @default(" ")
+  personalizedMonitoring PersonalizedMonitoring[]
+}
+
+// Prediction models parameters
+model PredictionModelParam {
+  id                 String           @id @default(cuid())
+  name               String
+  manualEntryAllowed Boolean          @default(false)
+  // Foreign key to Vital
+  vital              Vital?           @relation(fields: [vitalId], references: [id])
+  vitalId            String?
+  // Foreign key to Prediction Model
+  predictionModel    PredictionModel? @relation(fields: [predictionModelId], references: [id])
+  predictionModelId  String?
+}
+
+// Device-User Link
+model DeviceUserLink {
+  id         String  @id @default(cuid())
+  // Foreign key to User
+  user       User?   @relation(fields: [userId], references: [id])
+  userId     String? @unique
+  // Hardware Id
+  hardwareId String  @unique
+  // Linking Timestamp UTC Timestamp at timezone 00:00
+  linkedOn   BigInt
+}
+
+// FCM Tokens
+// User FCM Tokens
+model UserFCMToken {
+  id     String @id @default(cuid())
+  token  String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+// Doctor FCM Tokens
+model DoctorFCMToken {
+  id       String @id @default(cuid())
+  token    String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
+  doctorId String
+}
+
+// Vital request
+model VitalRequest {
+  id          String  @id @default(cuid())
+  vitals      Vital[]
+  // Foreign key to User
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      String?
+  // Is request active
+  active      Boolean @default(true)
+  // Requested On UTC Timestamp at timezone 00:00
+  requestedOn BigInt
+}
+
+// Access request
+model AccessRequest {
+  id          String  @id @default(cuid())
+  // Foreign key to User
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      String?
+  // Foreign key to Doctor
+  doctor      Doctor? @relation(fields: [doctorId], references: [id])
+  doctorId    String?
+  // Requested On UTC Timestamp at timezone 00:00
+  requestedOn BigInt
+}

@@ -1,0 +1,13 @@
+p, a, h1, h2, h3, h4, h5, h6{
+    font-family: 'Poppins';
+}
+
+*{
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+}
+
+.mandatory{
+    display: inline;
+    color: red!important;
+    font-weight: 700;
+}

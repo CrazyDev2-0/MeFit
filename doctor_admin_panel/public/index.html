@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo_light.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>MeFit - Doctor portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .loadingScreen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        background-color: white;
+        opacity: 0.75;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        -webkit-transition: opacity 1.5s ease-in-out;
+        -moz-transition: opacity 1.5s ease-in-out;
+        -ms-transition: opacity 1.5s ease-in-out;
+        -o-transition: opacity 1.5s ease-in-out;
+      }
+      .hidden {
+        opacity: 0;
+        display: hidden;
+        z-index: -1;
+      }
+
+      .lds-ripple {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-ripple div {
+        position: absolute;
+        border: 4px solid rgb(72, 0, 255);
+        opacity: 1;
+        border-radius: 50%;
+        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+      }
+      .lds-ripple div:nth-child(2) {
+        animation-delay: -0.5s;
+      }
+      @keyframes lds-ripple {
+        0% {
+          top: 36px;
+          left: 36px;
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+        4.9% {
+          top: 36px;
+          left: 36px;
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+        5% {
+          top: 36px;
+          left: 36px;
+          width: 0;
+          height: 0;
+          opacity: 1;
+        }
+        100% {
+          top: 0px;
+          left: 0px;
+          width: 72px;
+          height: 72px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loadingScreen hidden">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <script>
+      function openNavbar() {
+        document.getElementsByTagName("nav")[0].classList.add("show");
+      }
+
+      function closeNavbar() {
+        document.getElementsByTagName("nav")[0].classList.remove("show");
+      }
+
+      function toggleNavbar() {
+        var navbar = document.getElementsByTagName("nav")[0];
+        if (navbar.classList.contains("show")) {
+          navbar.classList.remove("show");
+        } else {
+          navbar.classList.add("show");
+        }
+      }
+
+
+      function openAlertBar() {
+        document.getElementById("alertBar").classList.add("show");
+      }
+
+      function closeAlertBar() {
+        document.getElementById("alertBar").classList.remove("show");
+      }
+
+      function toggleAlertBar() {
+        var navbar = document.getElementById("alertBar");
+        if (navbar.classList.contains("show")) {
+          navbar.classList.remove("show");
+        } else {
+          navbar.classList.add("show");
+        }
+      }
+
+
+      function showLoadingScreen() {
+        document
+          .getElementsByClassName("loadingScreen")[0]
+          .classList.remove("hidden");
+      }
+
+      function hideLoadingScreen() {
+        document
+          .getElementsByClassName("loadingScreen")[0]
+          .classList.add("hidden");
+      }
+
+      document.openNavbar = openNavbar;
+      document.closeNavbar = closeNavbar;
+      document.toggleNavbar = toggleNavbar;
+
+      document.openAlertBar = openAlertBar;
+      document.closeAlertBar = closeAlertBar;
+      document.toggleAlertBar = toggleAlertBar;
+
+      document.showLoadingScreen = showLoadingScreen;
+      document.hideLoadingScreen = hideLoadingScreen;
+    </script>
+  </body>
+</html>

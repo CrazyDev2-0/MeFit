@@ -1,0 +1,54 @@
+.patientStats {
+    width: 90vw;
+    background-color: transparent;
+  
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .content{
+        background-color: white;
+        height: 700px;
+        border-radius: 10px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow-y: scroll;
+    }
+
+    .chartDesign{
+        height: 500px;
+        width: 40vw;
+        margin: auto auto;
+        // margin-bottom: 50px;
+    }
+  }
+  
+  
+  @media screen and (max-width: 800px) {
+    .patientStats {
+      width: 98vw;
+  
+      .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 10px;
+  
+        div {
+          width: 100%;
+          button {
+            width: 45%;
+          }
+        }
+      }
+    }
+  
+  
+  }
+  
