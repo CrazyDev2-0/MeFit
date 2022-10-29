@@ -1,8 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:optum_hackathon/domain/controller/globalController.dart';
+import 'package:optum_hackathon/presentation/pages/deviceLinkScreen.dart';
 
 class SOSPage extends StatelessWidget {
   const SOSPage({Key? key}) : super(key: key);
@@ -18,10 +21,16 @@ class SOSPage extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: (){
+                    Get.to(()=>DeviceLinkScreen());
+                  },
+                  icon: Icon(Icons.devices, color: Colors.grey.shade600,)
+              ),
+              IconButton(
+                  onPressed: (){
                     controller.logout();
                   },
                   icon: Icon(Icons.logout, color: Colors.grey.shade600,)
-              )
+              ),
             ],
           ),
           body: SingleChildScrollView(

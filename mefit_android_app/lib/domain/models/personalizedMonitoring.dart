@@ -74,8 +74,8 @@ class PersonalizedMonitoringRecord {
         intervalSeconds: json["intervalSeconds"],
         vitalThreshold: List<VitalThreshold>.from(
             json["vitalThreshold"].map((x) => VitalThreshold.fromJson(x))),
-        currentSteps: json["currentSteps"],
-        currentCalories: json["currentCalories"],
+        currentSteps: double.parse(json["currentSteps"].toString()).toInt(),
+        currentCalories: double.parse(json["currentCalories"].toString()).toInt(),
       );
 
   Map<String, dynamic> toJson() => {

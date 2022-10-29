@@ -53,7 +53,7 @@ class VitalData {
   });
 
   factory VitalData.fromJson(Map<String, dynamic> json) => VitalData(
-    val: json["val"],
+    val: double.parse(json["val"].toString()).roundToDouble().toInt(),
     timestamp: json["timestamp"],
   );
 

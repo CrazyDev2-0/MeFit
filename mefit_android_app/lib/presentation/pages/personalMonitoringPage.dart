@@ -159,7 +159,7 @@ Widget _calorieTargetCard(BuildContext context, int target, int done){
                     Text((max(target-done, 0)).toString(),style: const TextStyle(fontSize: 21,color: Colors.white)),
                     const SizedBox(width: 5,),
                     // unit
-                    Text("kcal",style: TextStyle(fontSize: 16,color: Colors.grey.shade600)),
+                    Text("cal",style: TextStyle(fontSize: 16,color: Colors.grey.shade600)),
                   ],
                 ),
                 // label

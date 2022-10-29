@@ -156,6 +156,7 @@ class AuthController extends GetxController {
     var response = await _restAPI.post("/auth/register", {}, {
       "name" : nameController!.text,
       "email" : emailController!.text,
+      "phoneNo" : phoneNoController!.text,
       "password" : passwordController!.text,
       "age" : int.parse(ageController!.text),
       "gender" : gender,
