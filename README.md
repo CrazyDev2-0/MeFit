@@ -75,7 +75,7 @@
 
 ### Steps to run Health Simulator
 - Clone the [health_simulator](./health_simulator) folder
-- To compiler or run , QT vesion>=6.0.0 need to be installed in local system
+- To compile or run , QT vesion>=6.0.0 need to be installed in local system
 - You can open the project with QT editor and run/build directly from IDE
 
 ### Steps to install code in Nodemcu [Hardware]
