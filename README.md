@@ -64,6 +64,7 @@
 ### Steps to build Android App
 - Clone the [mefit_android_app App](./mefit_android_app) folder
 - Go to `lib/config/config.dart` file and update `baseDomain` with deployed  url of backend
+- To enable notification support, register the app in firebase. Follow this guide [firebase.google.com/docs/flutter/setup?platform=android](https://firebase.google.com/docs/flutter/setup?platform=android)
 - To build apk file , run `flutter build apk --release`
 
 ### Steps to run ML Models as a microservice
