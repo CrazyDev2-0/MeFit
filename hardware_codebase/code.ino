@@ -13,8 +13,8 @@ const String hardwareID = "56565465";
 const String url = "https://stratathonapi.tanmoy.codes";
 
 // Define global variables
-#define SSID_NAME "Tanmoy_Home_2.4G"
-#define SSID_PASS "15072002"
+#define SSID_NAME ""
+#define SSID_PASS ""
 
 // WIFI Setup
 ESP8266WiFiMulti WiFiMulti;
