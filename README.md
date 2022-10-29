@@ -18,7 +18,7 @@
     - Password : 888530
 
 ### Steps to access MeFit Android App
-- [Click here to download android app](./assets/mefit-app.apk)
+- [Click here to download android app](https://github.com/CrazyDev2-0/MeFit/raw/main/assets/mefit-app.apk)
 - Testing Credentials
     - E-mail : patient@test.com
     - Password : 613783
