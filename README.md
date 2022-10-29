@@ -87,6 +87,7 @@
 
 ---
 ### For detailed information, watch [this video](https://www.youtube.com/watch?v=W0Sel2hdxIs)
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/W0Sel2hdxIs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Click here to open video in youtube](https://www.youtube.com/watch?v=W0Sel2hdxIs)
