@@ -86,9 +86,9 @@
 - Clik on `Upload`
 
 ---
-### For detailed information, watch [this video](https://www.youtube.com/watch?v=W0Sel2hdxIs)
+### For detailed information and product demo, watch [this video](https://www.youtube.com/watch?v=W0Sel2hdxIs)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/W0Sel2hdxIs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Product Demo](http://img.youtube.com/vi/W0Sel2hdxIs/0.jpg)](http://www.youtube.com/watch?v=W0Sel2hdxIs "MeFit Detailed Demo")
 
 [Click here to open video in youtube](https://www.youtube.com/watch?v=W0Sel2hdxIs)
 
