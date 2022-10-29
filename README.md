@@ -58,7 +58,7 @@
 
 ### Steps to run Doctor Admin Panel
 - Clone the [doctor_admin_panel](./doctor_admin_panel) folder
-- Update *BASE_URL* with your deployed link of backend in project
+- Update *BASEURL* with your deployed link of backend in project
 - Run `npm start` or build by `npm run build`
 
 ### Steps to build Android App
