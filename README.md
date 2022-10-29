@@ -42,8 +42,8 @@
 ## 🔵 High Level System Design
 #### During design of this project, microservice architecture has been followed to lower the latency and optimize realtime monitoring by converting ai models , notification and SOS service to microservices
 
-![Core System design1]("./assets/system_design1.png")
-![Core System design2]("./assets/system_design2.png")
+![Core System design1](./assets/system_design1.png)
+![Core System design2](./assets/system_design2.png)
 
 ---
 ## Guide to run in local system
